@@ -1,0 +1,52 @@
+import random
+
+
+attack = input("attacks:")
+toHit = input("to hit(set to 1 for Flamers/auto-hit weapons):")
+strength = input("strength:")
+tough = input("toughness:")
+save = input("save(accounting for AP/invuln):")
+
+atk = int(attack)
+BS = int(toHit)
+str = int(strength)
+tgh = int(tough)
+sv = int(save)
+
+
+if str == tgh:
+    wound = 4
+
+else:
+    if str >= tgh:
+        if str >= tgh * 2:
+            wound = 2
+        else:
+            wound = 3
+
+    else:
+        if str * 2 <= tgh:
+            wound = 6
+        else:
+            wound = 5
+
+wnd = int(wound)
+
+print("------------------")
+total = int(0)
+results = []
+for x in range(0,atk):
+
+    if random.randint(1,6) >= BS:
+        if random.randint(1,6) >= wnd:
+            if random.randint(1,6) <= sv:
+                results.append("WOUND")
+                total = total + 1
+            else:
+                results.append("Save")
+        else:
+            results.append("Ineffective")
+    else:
+        results.append("Miss")
+print(total,"wounds")
+print(total / atk * 100, "% success rate")
